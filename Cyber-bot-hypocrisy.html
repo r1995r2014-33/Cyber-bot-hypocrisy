@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Cyber Bot 2</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f7f7f7;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding-top: 40px;
+    }
+
+    /* صندوق البوت */
+    #voiceflow-chat {
+      width: 420px;
+      height: 600px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      background-color: #fff;
+      overflow: hidden;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- مكان ظهور البوت -->
+  <div id="voiceflow-chat"></div>
+
+  <!-- كود Voiceflow -->
+  <script type="text/javascript">
+    (function (d, t) {
+      var v = d.createElement(t),
+        s = d.getElementsByTagName(t)[0];
+      v.onload = function () {
+        window.voiceflow.chat.load({
+          verify: { projectID: '694985a0d5d80f230a07ce38' },
+          url: 'https://general-runtime.voiceflow.com',
+          versionID: 'production',
+          render: {
+            mode: 'embedded',
+            target: document.getElementById('voiceflow-chat')
+          }
+        });
+      };
+      v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs";
+      v.type = "text/javascript";
+      s.parentNode.insertBefore(v, s);
+    })(document, 'script');
+  </script>
+
+</body>
+</html>
