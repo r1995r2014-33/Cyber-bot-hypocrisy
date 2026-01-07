@@ -4,28 +4,59 @@
   <meta charset="UTF-8" />
   <title>Cyber Bot - Hypocrisy</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
   <style>
-    body{
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f7f7f7;
+    body { margin: 0; font-family: Arial, sans-serif; background: #f7f7f7; }
+    #vf-chat { width: 100%; height: 85vh; background: #fff; }
+    .footer {
+      height: 15vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 10px 16px;
     }
-
-    /* مساحة البوت داخل الصفحة */
-    #vf-chat {
-      width: 100%;
-      height: 100vh;  /* خليها كاملة مثل صفحة البوت الأول */
-      background: #fff;
+    .btn {
+      padding: 12px 18px;
+      border: 0;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 16px;
     }
+    .btn-primary { background: #111827; color: #fff; }
+    .hint { font-size: 13px; color: #6b7280; }
   </style>
 </head>
 
 <body>
 
-  <!-- هذا هو العنصر اللي البوت ينزرع داخله -->
+  <!-- Bot container (embedded) -->
   <div id="vf-chat"></div>
 
+  <!-- Continue button to Survey 2 -->
+  <div class="footer">
+    <button class="btn btn-primary" id="continueBtn">Continue to Survey 2</button>
+    <div class="hint" id="pidHint"></div>
+  </div>
+
+  <script>
+    // 1) Read pid from URL
+    const params = new URLSearchParams(window.location.search);
+    const pid = params.get('pid') || '';
+
+    // (اختياري) عرض المعرّف للتأكد أثناء الاختبار — احذفيه لاحقًا إذا ما تبينه
+    document.getElementById('pidHint').textContent = pid ? `ID: ${pid}` : 'ID not found in URL';
+
+    // 2) Build Survey 2 link using the SAME identifier
+    // IMPORTANT: replace SV_XXXXX with your real Survey 2 link
+    const survey2Base = "https://strath.eu.qualtrics.com/jfe/form/SV_034Ksjs3ZFTR60m";
+    const survey2Url = `${survey2Base}?participant_id=${encodeURIComponent(pid)}`;
+
+    document.getElementById('continueBtn').addEventListener('click', () => {
+      window.location.href = survey2Url;
+    });
+  </script>
+
+  <!-- Voiceflow embed -->
   <script type="text/javascript">
     (function(d, t) {
         var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
@@ -34,9 +65,7 @@
             verify: { projectID: '694985a0d5d80f230a07ce38' },
             url: 'https://general-runtime.voiceflow.com',
             versionID: 'production',
-            voice: {
-              url: "https://runtime-api.voiceflow.com"
-            },
+            voice: { url: "https://runtime-api.voiceflow.com" },
             render: {
               mode: 'embedded',
               target: document.getElementById('vf-chat')
@@ -51,4 +80,5 @@
 
 </body>
 </html>
+
 
